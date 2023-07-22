@@ -11,19 +11,19 @@ for i, c in enumerate(alphabet):
 del i, c
 
 
-def uuid_to_nano(u: uuid.UUID, *, alphabet=alphabet) -> str:
-    u = u.int
-    assert u >> 62 & 0b11 == 2
-    u = (u >> 64 << 62) | (u & _low_mask)
+def uuid_to_nanoid(uu: uuid.UUID, *, alphabet=alphabet) -> str:
+    uu = uu.int
+    assert uu >> 62 & 0b11 == 2, "Wrong mark bits. Use fix_uuid() for true random input"
+    uu = (uu >> 64 << 62) | (uu & _low_mask)
     b = bytearray(21)
     for i in range(21):
-        b[i] = alphabet[u >> (6 * i) & 0b111111]
+        b[i] = alphabet[uu >> (6 * i) & 0b111111]
     return b.decode()
 
 
-def nano_to_uuid(nano: str, *, alphabet=_alpharev) -> uuid.UUID:
-    u = 0
+def nanoid_to_uuid(nano: str, *, alphabet=_alpharev) -> uuid.UUID:
+    uu = 0
     for c in nano.encode()[::-1]:
-        u = (u << 6) | alphabet[c]
-    u = (u >> 62 << 64) | (u & _low_mask) | _const_bits
-    return uuid.UUID(int=u)
+        uu = (uu << 6) | alphabet[c]
+    uu = (uu >> 62 << 64) | (uu & _low_mask) | _const_bits
+    return uuid.UUID(int=uu)
