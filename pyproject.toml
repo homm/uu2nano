@@ -1,6 +1,10 @@
 [project]
-name = "auth_server"
-version = "0"
+name = "uu2nano"
+version = "1.0"
+requires-python = ">=3.7"
+
+[tool.setuptools]
+py-modules = ["uu2nano"]
 
 [tool.flake8]
 max-line-length = 88
