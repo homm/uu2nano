@@ -27,3 +27,8 @@ def nanoid_to_uuid(nano: str, *, alphabet=_alpharev) -> uuid.UUID:
         uu = (uu << 6) | alphabet[c]
     uu = (uu >> 62 << 64) | (uu & _low_mask) | _const_bits
     return uuid.UUID(int=uu)
+
+
+def fix_uuid(uu: uuid.UUID) -> uuid.UUID:
+    uu = uu.int & ~(0b11 << 62) | _const_bits
+    return uuid.UUID(int=uu)
