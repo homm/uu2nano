@@ -3,7 +3,7 @@ from functools import wraps
 
 import pytest
 
-from uu2nano import nanoid_to_uuid, uuid_to_nanoid, fix_uuid
+from uu2nano import fix_uuid, nanoid_to_uuid, uuid_to_nanoid
 
 
 # Try tests with random inputs multiple times

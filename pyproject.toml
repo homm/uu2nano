@@ -1,0 +1,15 @@
+[project]
+name = "auth_server"
+version = "0"
+
+[tool.flake8]
+max-line-length = 88
+
+[tool.isort]
+combine_as_imports = true
+line_length = 88
+multi_line_output = 4
+lines_after_imports = 2
+
+[tool.pytest.ini_options]
+addopts = "-v"
