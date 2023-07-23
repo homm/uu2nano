@@ -29,6 +29,12 @@ def test_nanoid_to_uuid():
     assert isinstance(uu, uuid.UUID)
 
 
+def test_stability():
+    uu = uuid.UUID('492b6acb-05c7-4914-b139-253070a085e9')
+    nano = uuid_to_nanoid(uu)
+    assert nano == 'ggHEMKl5gfh2T7h-KC6lD'
+
+
 @pytest.mark.parametrize("bits", [0b00, 0b01, 0b11])
 def test_fix_uuid(bits):
     # Reset 62-63 bits and set required bits

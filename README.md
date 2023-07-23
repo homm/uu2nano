@@ -21,7 +21,7 @@ Nanoid is encoded using 64 URL-safe symbols (`A-Za-z0-9_-`) which makes possible
 to store 6 bits of information per symbol. To store 126 UUID bits, only 
 126 / 6 = 21 characters are used in the string representation.
 
-For example: `Dl6CK-h7T2hfg5lKMEHgg`
+For example: `ggHEMKl5gfh2T7h-KC6lD`
 
 
 ## Usage
