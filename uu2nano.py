@@ -1,6 +1,8 @@
 import uuid
 
 
+__version__ = '1.0'
+
 alphabet = b'_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 _low_mask = 2 ** 62 - 1
