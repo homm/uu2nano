@@ -3,7 +3,7 @@ from functools import wraps
 
 import pytest
 
-from uu2nano import fix_uuid, nanoid_to_uuid, uuid_to_nanoid
+from uu2nano import _make_alpharev, fix_uuid, nanoid_to_uuid, uuid_to_nanoid
 
 
 # Try tests with random inputs multiple times
@@ -33,6 +33,23 @@ def test_stability():
     uu = uuid.UUID('492b6acb-05c7-4914-b139-253070a085e9')
     nano = uuid_to_nanoid(uu)
     assert nano == 'ggHEMKl5gfh2T7h-KC6lD'
+
+
+@repeat(64)
+def test_custom_alphabet():
+    alphabet = b'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]'
+    alpharev = _make_alpharev(alphabet)
+    uu = uuid.uuid4()
+    nano = uuid_to_nanoid(uu, alphabet=alphabet)
+
+    # Shouldn't match with default alphabet
+    assert nano != uuid_to_nanoid(uu)
+
+    # Shouldn't match with default alpharev
+    assert uu != nanoid_to_uuid(nano)
+
+    # Should match with right reverse alphabet
+    assert uu == nanoid_to_uuid(nano, alpharev=alpharev)
 
 
 @pytest.mark.parametrize("bits", [0b00, 0b01, 0b11])

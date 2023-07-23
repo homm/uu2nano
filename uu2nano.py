@@ -3,14 +3,18 @@ import uuid
 
 __version__ = '1.0'
 
-alphabet = b'_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
+def _make_alpharev(alphabet):
+    alpharev = bytearray(max(c for c in alphabet) + 1)
+    for i, c in enumerate(alphabet):
+        alpharev[c] = i
+    return bytes(alpharev)
+
+
+alphabet = b'_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+alpharev = _make_alpharev(alphabet)
 _low_mask = 2 ** 62 - 1
 _const_bits = 0b10 << 62
-_alpharev = bytearray(max(c for c in alphabet) + 1)
-for i, c in enumerate(alphabet):
-    _alpharev[c] = i
-del i, c
 
 
 def uuid_to_nanoid(uu: uuid.UUID, *, alphabet=alphabet) -> str:
@@ -23,10 +27,10 @@ def uuid_to_nanoid(uu: uuid.UUID, *, alphabet=alphabet) -> str:
     return b.decode()
 
 
-def nanoid_to_uuid(nano: str, *, alphabet=_alpharev) -> uuid.UUID:
+def nanoid_to_uuid(nano: str, *, alpharev=alpharev) -> uuid.UUID:
     uu = 0
     for c in nano.encode():
-        uu = (uu << 6) | alphabet[c]
+        uu = (uu << 6) | alpharev[c]
     uu = (uu >> 62 << 64) | (uu & _low_mask) | _const_bits
     return uuid.UUID(int=uu)
 
