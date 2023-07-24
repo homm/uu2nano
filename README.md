@@ -37,7 +37,7 @@ nano = uuid_to_nanoid(uu)
 assert uu == nanoid_to_uuid(nano)
 ```
 
-If you receive UUIDs from an untrusted place, there is a chance that eventually
+If you receive not compliant UUIDs from third parties, there is a chance that eventually
 two reserved fixed bits could be wrong. In this case `uuid_to_nanoid` will fail:
 
 ```python

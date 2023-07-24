@@ -19,7 +19,7 @@ _CONST_BITS = 0b10 << 62
 
 def uuid_to_nanoid(uu: uuid.UUID, *, alphabet=ALPHABET) -> str:
     uu = uu.int
-    assert uu >> 62 & 0b11 == 2, "Wrong mark bits. Use fix_uuid() for true random input"
+    assert uu >> 62 & 0b11 == 2, "Not RFC 4122 compliant UUID"
     uu = (uu >> 64 << 62) | (uu & _LOW_MASK)
     b = bytearray(21)
     for i in range(21):

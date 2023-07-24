@@ -57,7 +57,7 @@ def test_fix_uuid(bits):
     # Reset 62-63 bits and set required bits
     uu = uuid.uuid4().int & ~(0b11 << 62) | bits << 62
     uu = uuid.UUID(int=uu)
-    with pytest.raises(AssertionError, match="Use fix_uuid"):
+    with pytest.raises(AssertionError, match="compliant UUID"):
         uuid_to_nanoid(uu)
     uu = fix_uuid(uu)
     nano = uuid_to_nanoid(uu)
