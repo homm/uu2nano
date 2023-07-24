@@ -1,0 +1,32 @@
+[project]
+name = "uu2nano"
+dynamic = ["version"]
+requires-python = ">=3.7"
+
+description = "Conversion tool from UUID to nanoid and vice versa"
+readme = "README.md"
+keywords = ["uuid", "nanoid"]
+authors = [
+    {name = "Aleksandr Karpinskii", email = "homm86@gmail.com"},
+]
+
+[project.urls]
+Repository = "https://github.com/homm/uu2nano"
+
+[tool.setuptools]
+py-modules = ["uu2nano"]
+
+[tool.setuptools.dynamic]
+version = {attr = "uu2nano.__version__"}
+
+[tool.flake8]
+max-line-length = 88
+
+[tool.isort]
+combine_as_imports = true
+line_length = 88
+multi_line_output = 4
+lines_after_imports = 2
+
+[tool.pytest.ini_options]
+addopts = "-v"
